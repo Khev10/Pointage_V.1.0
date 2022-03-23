@@ -1,0 +1,50 @@
+﻿@model IEnumerable<pointage.Model.events>
+@{
+    ViewBag.Title = "ViewEvent";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+
+<link href="~/Style/StyleSheet2.css" rel="stylesheet" />
+
+<div class="title">Events</div>
+
+
+<div class="content">
+    <form action="#">
+        <div class="user-details">
+        </div>
+
+        <table>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.event_id)</th>
+                <th>@Html.DisplayNameFor(model => model.event_name)</th>
+                <th>@Html.DisplayNameFor(model => model.start_date)</th>
+                <th>@Html.DisplayNameFor(model => model.expiry_date)</th>
+                <th colspan="2">Action</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelitem=> item.event_id)</td>
+                    <td>@Html.DisplayFor(modelitem => item.event_name)</td>
+                    <td>@Html.DisplayFor(modelitem => item.start_date)</td>
+                    <td>@Html.DisplayFor(modelitem => item.expiry_date)</td>
+                    <td><input class="edit" type="submit" value="Edit" onclick="location.href='@Url.Action("EditEvent", "Events" , new { id= item.event_id})';return false;"></td>
+                    <td><input class="edit" type="submit" value="Delete" onclick="location.href='@Url.Action("DeleteEvent", "Events",new { id= item.event_id})';return false;"></td>
+                </tr>
+            }
+        </table>
+        <div class="button">
+            <input type="submit" value="Create Events" onclick="location.href='@Url.Action("AddEvent", "Events")';return false;">
+        </div>
+        <div class="button">
+            <input type="submit" value="Back" onclick="location.href='@Url.Action("Index", "Admin")';return false;">
+        </div>
+
+
+
+    </form>
+</div>
+

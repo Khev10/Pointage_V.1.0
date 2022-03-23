@@ -1,0 +1,98 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.joyboy {
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url('../img/bg/promo-bg-2.jpg');
+    background-position: center;
+    background-size: cover;
+    position: fixed;
+}
+.form-box{
+    width: 360px;
+    height: 800px;
+    margin: auto;
+    background-color: white;
+    border-radius: 10px;
+    position: center;
+}
+input[type= "submit"] {     
+    width: 320px;
+    height: 35%;
+    margin-top: 10px;
+    border: none;
+    background-color: rgb(233, 216, 64);
+    color: white;
+    font-size: 15px;
+}
+.luffy {
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url('../img/bg/news-9.jpg');
+    background-position: center;
+    background-size: cover;
+    position: fixed;
+}
+.login-box{
+    margin-top: 20px;
+    width: 360px;
+    height: 280px;
+    margin: auto;
+    background-color:white;
+    position: absolute;
+    border-radius: 10px;
+    top: 10%;
+    left: 36%
+}
+h1{
+    text-align: center;
+    padding-top: 15px;
+}
+form{
+    width: 300px;
+    margin-left: 20px;
+}
+form label{
+    display: flex;
+    margin-top: 10px;
+    font-size: 13px;
+}
+form input{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 6px;
+    outline: none;
+}
+select{
+    width: 50%;
+    padding: 5px;
+}
+input[type = "button"] {
+    width: 320px;
+    height: 35%;
+    margin-top: 20px;
+    border: none;
+    background-color: rgb(233, 216, 64);
+    color: white;
+    font-size: 15px;
+}
+input[class = "reset"]{
+    width: 320px;
+    height: 35%;
+    margin-top: 15px;
+    border: none;
+    background-color:rgb(143, 138, 138);
+    color: rgb(250, 246, 246);
+    font-size: 15px;
+}
+p{
+    text-align: center;
+    font-size: 15px;
+    margin-top: 6px;
+}
+p a{
+    color: #49c1a2;
+}

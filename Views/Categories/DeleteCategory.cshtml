@@ -1,0 +1,31 @@
+﻿@model pointage.Model.category
+
+@{
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+<div class="title">Delete Category</div>
+<div class="content">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="user-details">
+            <div class="input-box">
+                <span class="details">Category ID</span>
+                @Html.EditorFor(model => model.category_id, new { htmlAttributes = new { placeholder = "Enter Category ID", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
+            </div>
+            <div class="input-box">
+                <span class="details">Category Name</span>
+                @Html.EditorFor(model => model.category_name, new { htmlAttributes = new { placeholder = "Enter your Category Name", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.category_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="button">
+            <input type="submit" value="Delete Category">
+        </div>
+        <div class="button">
+            <input type="submit" value="Back" onclick="location.href='@Url.Action("ViewCategory", "Categories")';return false;">
+        </div>
+    }
+
+</div>

@@ -1,0 +1,39 @@
+﻿@model pointage.Model.coupon
+@{
+    ViewBag.Title = "Create1";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+
+<div class="title">Delete Coupon</div>
+<div class="content">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.coupon_id)
+        <div class="user-details">
+            <div class="input-box">
+                <span class="details">Coupon Name</span>
+                @Html.EditorFor(model => model.coupon_name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Coupon Name" ,@readonly="readonly"} })
+                @Html.ValidationMessageFor(model => model.coupon_name, "", htmlAttributes: new { @class = "text-danger" })
+            </div>
+            <div class="input-box">
+                <span class="details">Events</span>
+              @Html.EditorFor(model => model.events.event_name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Coupon Name", @readonly = "readonly" } })
+            </div>
+            <div class="input-box">
+                <span class="details">Discount</span>
+                @Html.EditorFor(model => model.discount_val, new { htmlAttributes = new { @class = "form-control", placeholder = "Discount %" , @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.discount_val, "", htmlAttributes: new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="button">
+            <input type="submit" value="Delete Coupon">
+        </div>
+        <div class="button">
+            <input type="submit" value="Back" onclick="location.href='@Url.Action("ViewCoupon", "Coupons")';return false;">
+        </div>
+    }
+</div>
+

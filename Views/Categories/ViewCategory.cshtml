@@ -1,0 +1,47 @@
+﻿@model IEnumerable<pointage.Model.category>
+@{
+    ViewBag.Title = "ViewCategory";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<div class="title">Categories</div>
+
+
+<div class="content">
+
+    <div class="user-details">
+    </div>
+
+    <table>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.category_id)</th>
+            <th>@Html.DisplayNameFor(model => model.category_name)</th>
+            <th colspan="2">Action</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelitem => item.category_id)</td>
+                <td>@Html.DisplayFor(modelitem => item.category_name)</td>
+                <td><input class="edit" type="submit" value="Edit" onclick="location.href='@Url.Action("EditCategory", "Categories",new { id=item.category_id })';return false;"></td>
+                <td><input class="edit" type="submit" value="Delete" onclick="location.href='@Url.Action("DeleteCategory", "Categories",new { id=item.category_id })';return false;"></td>
+            </tr>
+        }
+
+
+    </table>
+    <form action="#">
+        <div class="button">
+            <input type="submit" value="Add Category" onclick="location.href='@Url.Action("AddCategory", "Categories")';return false;">
+        </div>
+        <div class="button">
+            <input type="submit" value="Back" onclick="location.href='@Url.Action("Index", "Admin")';return false;">
+        </div>
+
+
+
+    </form>
+</div>
+
+
+

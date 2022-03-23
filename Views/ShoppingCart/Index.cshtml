@@ -1,0 +1,58 @@
+﻿@using pointage.Model;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="title">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
+                <th>Subtotal</th>
+            </tr>
+
+            @foreach (var shoppingcart in (List<ShoppingCart>)Session["ShoppingCart"])
+            {
+                <tr>
+                    <td>@shoppingcart.product.product_name</td>
+                    <td>@shoppingcart.product.product_price</td>
+                    <td>@shoppingcart.product.product_available_qty</td>
+                    <td></td>
+                    <td>
+                        @(String.Format("{0:N0}", shoppingcart.product.product_price * shoppingcart.product.product_available_qty))
+                    </td>
+                    <td>@Html.ActionLink("Delete", "Delete", "ShoppingCart", new { id = shoppingcart.product.product_id },
+        new { onclick = "return confirm ('Are you sure you want to delete this?');" })
+                       </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="4">Total</td>
+                <td>
+                    @{ 
+                        List<ShoppingCart> temp = (List<ShoppingCart>)Session["ShoppingCart"];
+                        var total = String.Format("{0:N0}", temp.Sum(x => x.Quantity * x.product.product_price));
+                    }
+                    @total  USD 
+                </td>
+            </tr>
+
+        </table>
+        <br/>
+        @Html.ActionLink("Continue Shopping?","Store","Home")
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>

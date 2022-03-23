@@ -1,0 +1,288 @@
+﻿@model IEnumerable<pointage.Model.product>
+@{
+    ViewBag.Title = "Store";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+#myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 50%;
+    max-width: 500px;
+}
+
+/* Caption of Modal Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+/* Add Animation */
+.modal-content, #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)}
+    to {-webkit-transform:scale(1)}
+}
+
+@@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+}
+</style>
+
+
+<!-- breadcrumb-area -->
+<section class="breadcrumb-area breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-content text-center">
+                    <h2>accessories <span>store</span></h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            @*<li class="breadcrumb-item"><a href="index.html">Buy Now</a></li>*@
+                            <li class="breadcrumb-item active" aria-current="page">Shop Now</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- breadcrumb-area-end -->
+<!-- shop-area -->
+<section class="shop-area pt-120 pb-90">
+    <div class="container">
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+            <div class="col-lg-4 col-sm-6">
+                <div class="accessories-item text-center mb-80">
+                    <div class="accessories-thumb mb-30">
+                        <img id="myImg" style="width:100%;max-width:300px;" src="~/img/product/@Html.DisplayFor(modelItem => item.product_image)" alt=@Html.DisplayFor(modelItem => item.product_name) />
+                        <div id="myModal" class="modal">
+                            <span class="close">&times;</span>
+                            <img class="modal-content" id="img01">
+                            <div id="caption"></div>
+                        </div>
+                        <script>
+                            var modal = document.getElementById("myModal");
+
+                            // Get the image and insert it inside the modal - use its "alt" text as a caption
+                            var img = document.getElementById("myImg");
+                            var modalImg = document.getElementById("img01");
+                            var captionText = document.getElementById("caption");
+                            img.onclick = function () {
+                                modal.style.display = "block";
+                                modalImg.src = this.src;
+                                captionText.innerHTML = this.alt;
+                            }
+
+                            // Get the <span> element that closes the modal
+                            var span = document.getElementsByClassName("close")[0];
+
+                            // When the user clicks on <span> (x), close the modal
+                            span.onclick = function () {
+                                modal.style.display = "none";
+                            }
+                        </script>
+                    </div>
+                    <div class="accessories-content">
+                        <h5><a href="#">@Html.DisplayFor(modelItem => item.product_name)</a></h5>
+                        <span>Price: $@Html.DisplayFor(modelItem => item.product_price)</span>
+                        @*<a h
+                ref="#" class="shop-add-action">Add to cart</a>*@
+                        @Html.ActionLink("Add To Cart", "OrderNow","CartItems",new {id=item.product_id },new { @class = "shop-add-action" })
+                    </div>
+                </div>
+                
+            </div>
+                
+
+            }
+
+
+            @*<div class="col-lg-4 col-sm-6">
+            <div class="accessories-item text-center mb-80">
+                <div class="accessories-thumb mb-30">
+                    <a href="#"><img src="~/img/product/shop_item02.jpg" alt=""></a>
+                </div>
+                <div class="accessories-content">
+                    <h5><a href="#">Gaming backpack</a></h5>
+                    <span>Price: $19.00</span>
+                    <a href="#" class="shop-add-action">Add to cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <div class="accessories-item text-center mb-80">
+                <div class="accessories-thumb mb-30">
+                    <a href="#"><img src="~/img/product/shop_item03.jpg" alt=""></a>
+                </div>
+                <div class="accessories-content">
+                    <h5><a href="#">xbox one controller</a></h5>
+                    <span>Price: $14.00</span>
+                    <a href="#" class="shop-add-action">Add to cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <div class="accessories-item text-center mb-80">
+                <div class="accessories-thumb mb-30">
+                    <a href="#"><img src="~/img/product/shop_item04.jpg" alt=""></a>
+                </div>
+                <div class="accessories-content">
+                    <h5><a href="#">Gaming T-Shirt</a></h5>
+                    <span>Price: $12.00</span>
+                    <a href="#" class="shop-add-action">Add to cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <div class="accessories-item text-center mb-80">
+                <div class="accessories-thumb mb-30">
+                    <a href="#"><img src="~/img/product/shop_item05.jpg" alt=""></a>
+                </div>
+                <div class="accessories-content">
+                    <h5><a href="#">Gaming backpack</a></h5>
+                    <span>Price: $19.00</span>
+                    <a href="#" class="shop-add-action">Add to cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <div class="accessories-item text-center mb-80">
+                <div class="accessories-thumb mb-30">
+                    <a href="#"><img src="~/img/product/shop_item06.jpg" alt=""></a>
+                </div>
+                <div class="accessories-content">
+                    <h5><a href="#">Joy‑Con controllers</a></h5>
+                    <span>Price: $14.00</span>
+                    <a href="#" class="shop-add-action">Add to cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <div class="accessories-item text-center mb-80">
+                <div class="accessories-thumb mb-30">
+                    <a href="#"><img src="~/img/product/shop_item07.jpg" alt=""></a>
+                </div>
+                <div class="accessories-content">
+                    <h5><a href="#">nintendo switch</a></h5>
+                    <span>Price: $12.00</span>
+                    <a href="#" class="shop-add-action">Add to cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <div class="accessories-item text-center mb-80">
+                <div class="accessories-thumb mb-30">
+                    <a href="#"><img src="~/img/product/shop_item08.jpg" alt=""></a>
+                </div>
+                <div class="accessories-content">
+                    <h5><a href="#">xbox one controller</a></h5>
+                    <span>Price: $19.00</span>
+                    <a href="#" class="shop-add-action">Add to cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+            <div class="accessories-item text-center mb-80">
+                <div class="accessories-thumb mb-30">
+                    <a href="#"><img src="~/img/product/shop_item09.jpg" alt=""></a>
+                </div>
+                <div class="accessories-content">
+                    <h5><a href="#">MaxGreen 5902 Blue</a></h5>
+                    <span>Price: $14.00</span>
+                    <a href="#" class="shop-add-action">Add to cart</a>
+                </div>
+            </div>
+        </d*@
+        </div>
+    </div>
+</section>
+<!-- shop-area-end -->
+<!-- JS here -->
+@*<script src="~/js/vendor/jquery-3.4.1.min.js"></script>*@
+@*<script src="~/js/popper.min.js"></script>*@
+@*<script src="~/js/bootstrap.min.js"></script>*@
+@*<script src="~/js/isotope.pkgd.min.js"></script>*@
+@*<script src="~/js/slick.min.js"></script>*@
+@*<script src="~/js/jquery.meanmenu.min.js"></script>*@
+@*<script src="~/js/wow.min.js"></script>*@
+@*<script src="~/js/aos.js"></script>*@
+@*<script src="~/js/jquery.lettering.js"></script>
+    <script src="~/js/jquery.textillate.js"></script>
+    <script src="~/js/jquery.odometer.min.js"></script>
+    <script src="~/js/jquery.appear.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/jquery.countdown.min.js"></script>
+    <script src="~/js/jquery.scrollUp.min.js"></script>
+    <script src="~/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/plugins.js"></script>*@
+@*<script src="~/js/main.js"></script>*@
+

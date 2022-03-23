@@ -1,0 +1,111 @@
+﻿@*@model IEnumerable<pointage.Model.checkout>*@
+@model pointage.Model.cart
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="title">
+        <h2>Check Out Form</h2>
+    </div>
+    <div class="d-flex">
+        <form action="" method="">
+            <label>
+                <span class="fname">User Name <span class="required">*</span></span>
+                @Html.EditorFor(model => model.users.username, new { htmlAttributes = new { @class = "form-control", placeholder = "", @readonly = "readonly" } })
+                @*<input type="text" name="fname">*@
+            </label>
+            @*<label>
+                    <span class="lname">Last Name <span class="required">*</span></span>
+                    <input type="text" name="lname">
+                </label>*@
+            <label>
+                <span>Address <span class="required">*</span></span>
+                @Html.EditorFor(model => model.users.address, new { htmlAttributes = new { @class = "form-control", placeholder = "", @readonly = "readonly" } })
+                @*<input type="text" name="houseadd" placeholder="House number and street name" required>*@
+            </label>
+            <label>
+                <span>Phone <span class="required">*</span></span>
+                @Html.EditorFor(model => model.users.contact_no, new { htmlAttributes = new { @class = "form-control", placeholder = "", @readonly = "readonly" } })
+                @*<input type="tel" name="city">*@
+            </label>
+            <label>
+                <span>Email Address <span class="required">*</span></span>
+                @Html.EditorFor(model => model.users.email, new { htmlAttributes = new { @class = "form-control", placeholder = "", @readonly = "readonly" } })
+                @*<input type="email" name="city">*@
+            </label>
+        </form>
+        <div class="Yorder">
+            @*<table>
+            <tr>
+                <th colspan="2">Your order</th>
+            </tr>
+            <tr>
+                <td>Product Name x 2(Qty)</td>
+                <td>00</td>
+            </tr>
+            <tr>
+                <td>Subtotal</td>
+                <td>00</td>
+            </tr>
+            <tr>
+                <td>Shipping</td>
+                <td>Free shipping</td>
+            </tr>
+        </table><br>*@
+            <div>
+                <input type="radio" name="dbt" value="dbt" checked> Direct Bank Transfer
+            </div>
+            <div>
+                <input type="radio" name="dbt" value="cd"> Cash on Delivery
+            </div>
+            <div>
+                <input type="radio" name="dbt" value="cd"> Paypal <span>
+                    <img src="https://www.logolynx.com/images/logolynx/c3/c36093ca9fb6c250f74d319550acac4d.jpeg" alt="" width="50">
+                </span>
+            </div>
+            @using (Html.BeginForm("PlaceOrder", "Checkouts", FormMethod.Post))
+            {
+                <input type="submit" value="Place Order" />
+            }
+
+            @*<a href="~/Home/Complete">Place Order</a>*@
+        </div><!-- Yorder -->
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!-- JS here -->
+<script src="~/js/vendor/jquery-3.4.1.min.js"></script>
+<script src="~/js/popper.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/isotope.pkgd.min.js"></script>
+<script src="~/js/slick.min.js"></script>
+<script src="~/js/jquery.meanmenu.min.js"></script>
+<script src="~/js/wow.min.js"></script>
+<script src="~/js/aos.js"></script>
+<script src="~/js/jquery.lettering.js"></script>
+<script src="~/js/jquery.textillate.js"></script>
+<script src="~/js/jquery.odometer.min.js"></script>
+<script src="~/js/jquery.appear.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<script src="~/js/jquery.countdown.min.js"></script>
+<script src="~/js/jquery.scrollUp.min.js"></script>
+<script src="~/js/imagesloaded.pkgd.min.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/plugins.js"></script>
+<script src="~/js/main.js"></script>
+

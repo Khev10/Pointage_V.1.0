@@ -1,0 +1,46 @@
+﻿@model IEnumerable<pointage.Model.coupon>
+@{
+    ViewBag.Title = "View Coupon";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<div class="content">
+    <form action="#">
+        <div class="user-details">
+        </div>
+
+        <table>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.coupon_id)</th>
+                <th>@Html.DisplayNameFor(model => model.coupon_name)</th>
+                <th>@Html.DisplayNameFor(model => model.event_id)</th>
+                <th>@Html.DisplayNameFor(model => model.discount_val)</th>
+                <th colspan="2">Action</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.coupon_id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.coupon_name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.events.event_name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.discount_val)</td>
+                    <td><input class="edit" type="submit" value="Edit" onclick="location.href='@Url.Action("EditCoupon", "Coupons",new { id =item.coupon_id})';return false;"></td>
+                    <td><input class="edit" type="submit" value="Delete" onclick="location.href='@Url.Action("DeleteCoupon", "Coupons", new { id=item.coupon_id})';return false;"></td>
+                </tr>
+            }
+
+        </table>
+        <div class="button">
+            <input type="submit" value="Create Coupon" onclick="location.href='@Url.Action("AddCoupon", "Coupons")';return false;">
+        </div>
+        <div class="button">
+            <input type="submit" value="Back" onclick="location.href='@Url.Action("Index", "Admin")';return false;">
+        </div>
+
+
+
+    </form>
+</div>
+
+
+

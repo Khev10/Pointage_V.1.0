@@ -1,0 +1,33 @@
+﻿@model pointage.Model.category
+
+@{ 
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+<div class="title">Edit Category</div>
+<div class="content">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="user-details">
+            <div class="input-box">
+                <span class="details">Category ID</span>
+                @*<input type="text" placeholder="" required>*@
+                @Html.EditorFor(model => model.category_id, new { htmlAttributes = new { placeholder = "Enter Category ID" , @readonly ="readonly"} })
+                @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
+            </div>
+            <div class="input-box">
+                <span class="details">Category Name</span>
+                @*<input type="text" placeholder="Enter your Product Name" required>*@
+                @Html.EditorFor(model => model.category_name, new { htmlAttributes = new { placeholder = "Enter your Category Name" } })
+                @Html.ValidationMessageFor(model => model.category_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="button">
+            <input type="submit" value="Update Category">
+        </div>  
+        <div class="button">
+            <input type="submit" value="Back" onclick="location.href='@Url.Action("ViewCategory", "Categories")';return false;">
+        </div>
+    }
+</div>
+

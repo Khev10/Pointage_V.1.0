@@ -1,0 +1,49 @@
+﻿@model pointage.Model.product
+
+
+@{
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+<div class="title">Delete Product</div>
+<div class="content">
+    @using (Html.BeginForm())
+    {
+
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.product_id)
+        <div class="user-details">
+            <div class="input-box">
+                <span class="details">Product Name</span>
+                @Html.EditorFor(model => model.product_name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your Product Name", @readonly="readonly"} })
+                @Html.ValidationMessageFor(model => model.product_name, "", new { @class = "text-danger" })
+            </div>
+            <div class="input-box">
+                <span class="details">Price</span>
+                @Html.EditorFor(model => model.product_price, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Price" , @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.product_price, "", new { @class = "text-danger" })
+            </div>
+            <div class="input-box">
+                <span class="details">Category</span>
+                @*@Html.DropDownList("category_id", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.EditorFor(model => model.category.category_name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Quantity", @readonly = "readonly" } })
+            </div>
+            <div class="input-box">
+                <span class="details">Quantity</span>
+                @Html.EditorFor(model => model.product_available_qty, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Quantity" , @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.product_available_qty, "", new { @class = "text-danger" })
+            </div>
+            <div class="input-box">
+                <span class="details">Product Image</span>
+                @Html.EditorFor(model => model.product_image, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.product_image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="button">
+            <input type="submit" value="Delete Product">
+        </div>
+        <div class="button">
+            <input type="submit" value="Back" onclick="location.href='@Url.Action("ViewProducts", "Products")';return false;">
+        </div>
+    }
+</div>

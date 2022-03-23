@@ -1,0 +1,27 @@
+﻿.edit {
+    background-color: black;
+    color: white;
+    border: 2px solid white;
+    
+}
+
+    .edit:hover {
+        background-color: white;
+        color: black;
+    }
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+    border-color: black;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}

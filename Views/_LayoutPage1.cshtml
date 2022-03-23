@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.png">
+
+    @* FONTS *@
+    <a href="~/fonts/fa-brands-400.eot"></a>
+    <a href="~/fonts/fa-brands-400.eot"></a>
+    <a href="~/fonts/fa-brands-400.ttf"></a>
+    <a href="~/fonts/fa-brands-400.woff"></a>
+    <a href="~/fonts/fa-brands-400.woff2"></a>
+    <a href="~/fonts/fa-regular-400.eot"></a>
+    <a href="~/fonts/fa-regular-400.eot"></a>
+    <a href="~/fonts/fa-regular-400.ttf"></a>
+    <a href="~/fonts/fa-regular-400.woff"></a>
+    <a href="~/fonts/fa-regular-400.woff2"></a>
+    <a href="~/fonts/fa-solid-900.eot"></a>
+    <a href="~/fonts/fa-solid-900.eot"></a>
+    <a href="~/fonts/fa-solid-900.ttf"></a>
+    <a href="~/fonts/fa-solid-900.woff"></a>
+    <a href="~/fonts/fa-solid-900.woff2"></a>
+    <a href="~/fonts/grind_demolished-webfont.woff"></a>
+    <a href="~/fonts/grind_demolished-webfont.woff2"></a>
+
+    @* CSS FILES *@
+    <link href="~/css/animate.min.css" rel="stylesheet" />
+    <link href="~/css/aos.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/cart.css" rel="stylesheet" />
+    <link href="~/css/checkout.css" rel="stylesheet" />
+    <link href="~/css/default.css" rel="stylesheet" />
+    <link href="~/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link href="~/css/magnific-popup.css" rel="stylesheet" />
+    <link href="~/css/meanmenu.css" rel="stylesheet" />
+    <link href="~/css/odometer.css" rel="stylesheet" />
+    <link href="~/css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/css/responsive.css" rel="stylesheet" />
+    <link href="~/css/slick.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/modal.css" rel="stylesheet" />
+
+</head>
+<body>
+    <!-- header-area -->
+    <header>
+        <div class="header-top-area s-header-top-area d-none d-lg-block">
+            <div class="container-fluid s-container-full-padding">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 d-none d-lg-block">
+                        <div class="header-top-offer">
+                            <p>Exclusive Black Friday ! Offer</p>
+                            <span class="coming-time" data-countdown="2021/3/15"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="header-top-right">
+                            <div class="header-social">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="header-top-action">
+                                <ul>
+                                    <li>
+                                        <div class="header-top-mail">
+                                            <span>|</span><i class="far fa-envelope"></i>
+                                            @if (Session["username"] != null)
+                                            {
+                                        <li><p style="padding-top:13px;">| Welcome @Session["username"]<p></li>
+                                        <li>| @Html.ActionLink("Logout", "Logout", "Login")</li>
+                                    }
+                                    else
+                                    {
+                                        <li><p>| @Html.ActionLink("Register", "Register", "Login")</p></li>
+                                        <li><p style="padding:10px;">| @Html.ActionLink("Login", "Login", "Login")</p></li>
+                                    }
+
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="sticky-header" class="transparent-header">
+                    <div class="container-fluid s-container-full-padding">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="main-menu menu-style-two">
+                                    <nav>
+                                        <div class="logo">
+                                            <a href="Store"><img src="~/img/logo/Pointage2.png" alt="Logo"></a>
+                                        </div>
+                                        <div id="mobile-menu" class="navbar-wrap d-none d-lg-flex">
+                                            <ul>
+
+
+                                                <!--<-->
+                                                <!--li><a href="/Home" class="nav-item nav-link">Home</a></li>
+
+                                                <li>
+                                                <a href="/Home/About" class="nav-item nav-link">About us</a></li>-->
+                                                <!--ul class="submenu">
+                                                    <li class="active"><a href="about-us.html">About Us</a></li>
+                                                    <li><a href="upcoming-games.html">Upcoming Games</a></li>
+                                                </ul-->
+                                                <!--li><a href="community.html">Community</a></li-->
+                                                <li><a href="/Home/Store" class="nav-item nav-link">Store</a></li>
+                                                <!--li><a href="blog.html">Blog</a-->
+                                                @*</li>*@
+                                                <li><a href="/Home/Contacts" class="nav-item nav-link">contact</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="header-action">
+                                            <ul>
+                                                <li class="header-shop-cart">
+                                                    <a href='@Url.Action("Cart","CartItems")'>
+                                                        <i class="fas fa-shopping-basket"></i>
+
+                                                        @if (Session["cartcounter"] != null)
+                                                        {
+                                                            <span> @Session["cartcounter"]  </span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>0</span>
+                                                        }
+
+                                                    </a>
+                                                    @*<ul class="minicart">
+                                                            <li class="d-flex align-items-start">
+                                                                <div class="cart-img">
+                                                                    <a href="#">
+                                                                        <img src="~/img/product/cart_p01.jpg" alt="">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="cart-content">
+                                                                    <h4>
+                                                                        <a href="#">Xbox One Controller</a>
+                                                                    </h4>
+                                                                    <div class="cart-price">
+                                                                        <span class="new">$229.9</span>
+                                                                        <span>
+                                                                            <del>$229.9</del>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="del-icon">
+                                                                    <a href="#">
+                                                                        <i class="far fa-trash-alt"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="total-price">
+                                                                    <span class="f-left">Total:</span>
+                                                                    <span class="f-right">$239.9</span>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="checkout-link">
+                                                                    <a href='@Url.Action("Cart","Home")'>Shopping Cart</a>
+                                                                    <a class="red-color" href='@Url.Action("Checkout","Home")'>Checkout</a>
+                                                                </div>
+                                                            </li>
+                                                        </ul>*@
+                                                </li>
+                                                <li class="header-search"><a href="#" data-toggle="modal" data-target="#search-modal"><i class="fas fa-search"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </nav>
+                                </div>
+                                <div class="mobile-menu"></div>
+                            </div>
+                            <!-- Modal Search -->
+                            <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form>
+                                            <input type="text" placeholder="Search here...">
+                                            <button><i class="fa fa-search"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- header-area-end -->
+            <div>
+                @RenderBody()
+            </div>
+            <!-- footer-area -->
+            <footer>
+                <div class="footer-top footer-bg s-footer-bg">
+                    <!-- newsletter-area -->
+                    <div class="newsletter-area s-newsletter-area">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="newsletter-wrap">
+                                        <div class="section-title newsletter-title">
+                                            <h2>Our <span>Newsletter</span></h2>
+                                        </div>
+                                        <div class="newsletter-form">
+                                            <form action="#">
+                                                <div class="newsletter-form-grp">
+                                                    <i class="far fa-envelope"></i>
+                                                    <input type="email" placeholder="Enter your email...">
+                                                </div>
+                                                <button>SUBSCRIBE <i class="fas fa-paper-plane"></i></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- newsletter-area-end -->
+                    <div class="container">
+                        <div class="row justify-content-between">
+                            <div class="col-xl-3 col-lg-4 col-md-6">
+                                <div class="footer-widget mb-50">
+                                    <div class="footer-logo mb-35">
+                                        <a href="index.html"><img src="~/img/logo/Pointage2.png" alt=""></a>
+                                    </div>
+                                    <div class="footer-text">
+                                        <p>The Ultimate Eutopia for Gamers!</p>
+                                        <div class="footer-contact">
+                                            <ul>
+                                                <li><i class="fas fa-map-marker-alt"></i> <span>Address : </span>049 Pugeda St. Rosario, Cavite </li>
+                                                <li><i class="fas fa-headphones"></i> <span>Phone : </span>+46 527 7142</li>
+                                                <li><i class="fas fa-envelope-open"></i><span>Email : </span>pointage@gmail.com</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-3 col-sm-6">
+                                <div class="footer-widget mb-50">
+                                    <div class="fw-title mb-35">
+                                        <h5>Products</h5>
+                                    </div>
+                                    <div class="fw-link">
+                                        <ul>
+                                            <li><a href="#">Graphics (26)</a></li>
+                                            <li><a href="#">Backgrounds (11)</a></li>
+                                            <li><a href="#">Fonts (9)</a></li>
+                                            <li><a href="#">Music (3)</a></li>
+                                            <li><a href="#">Photography (3)</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-3 col-sm-6">
+                                <div class="footer-widget mb-50">
+                                    <div class="fw-title mb-35">
+                                        <h5>Need Help?</h5>
+                                    </div>
+                                    <div class="fw-link">
+                                        <ul>
+                                            <li><a href="#">Terms & Conditions</a></li>
+                                            <li><a href="#">Privacy Policy</a></li>
+                                            <li><a href="#">Refund Policy</a></li>
+                                            <li><a href="#">Affiliate</a></li>
+                                            <li><a href="#">FAQUse Cases</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-4 col-md-6">
+                                <div class="footer-widget mb-50">
+                                    <div class="fw-title mb-35">
+                                        <h5>Follow us</h5>
+                                    </div>
+                                    <div class="footer-social">
+                                        <ul>
+                                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="footer-widget mb-50">
+                                    <div class="fw-title mb-35">
+                                        <h5>Newsletter Sign Up</h5>
+                                    </div>
+                                    <div class="footer-newsletter">
+                                        <form action="#">
+                                            <input type="text" placeholder="Enter your email">
+                                            <button><i class="fas fa-rocket"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-fire"><img src="~/img/images/footer_fire.png" alt=""></div>
+                    <div class="footer-fire footer-fire-right"><img src="~/img/images/footer_fire.png" alt=""></div>
+                </div>
+                <div class="copyright-wrap s-copyright-wrap">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="copyright-text">
+                                    <p>Copyright © 2020 <a href="#">Pointage</a> All Rights Reserved.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 d-none d-md-block">
+                                <div class="payment-method-img text-right">
+                                    <img src="~/img/images/card_img.png" alt="img">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- footer-area-end -->
+        </body>
+    </html>

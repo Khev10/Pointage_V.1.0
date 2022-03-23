@@ -1,0 +1,53 @@
+﻿@model IEnumerable<pointage.Model.product>
+@{
+    ViewBag.Title = "ViewProducts";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<div class="title">Products</div>
+
+
+<div class="content">
+
+    <div class="user-details">
+    </div>
+
+    <table>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.product_id)</th>
+            <th> @Html.DisplayNameFor(model => model.product_name)</th>
+            <th>  @Html.DisplayNameFor(model => model.category.category_name)</th>
+            <th>  @Html.DisplayNameFor(model => model.product_price)</th>
+            <th> @Html.DisplayNameFor(model => model.product_available_qty)</th>
+            <th>  @Html.DisplayNameFor(model => model.product_image)</th>
+            <th colspan="2">Action</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.product_id)</td>
+                <td>@Html.DisplayFor(modelItem => item.product_name)</td>
+                <td>@Html.DisplayFor(modelItem => item.category.category_name)</td>
+                <td>@Html.DisplayFor(modelItem => item.product_price)</td>
+                <td>@Html.DisplayFor(modelItem => item.product_available_qty)</td>
+                <td><img src="~/Img/product/@item.product_image" alt="@item.product_image" />  </td>
+                @*<td>@Html.DisplayFor(modelItem => item.product_image)</td>*@
+                <td><input class="edit" type="submit" value="Edit" onclick="location.href='@Url.Action("EditProduct", "Products", new {id=item.product_id })';return false;"></td>
+                <td><input class="edit" type="submit" value="Delete" onclick="location.href='@Url.Action("DeleteProduct", "Products", new { id=item.product_id})';return false;"></td>
+            </tr>
+        }
+
+    </table>
+    <form action="#">
+        <div class="button">
+            <input type="submit" value="Add Product" onclick="location.href='@Url.Action("AddProduct", "Products")';return false;">
+        </div>
+        <div class="button">
+            <input type="submit" value="Back" onclick="location.href='@Url.Action("Index", "Admin")';return false;">
+        </div>
+
+
+
+    </form>
+</div>
+

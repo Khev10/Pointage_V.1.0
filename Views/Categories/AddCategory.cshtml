@@ -1,0 +1,38 @@
+﻿@model pointage.Model.category
+@{
+    ViewBag.Title = "Add2";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<link href="~/Style/StyleSheet2.css" rel="stylesheet" />
+
+    <div class="title">Add New Category</div>
+    <div class="content">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Category ID</span>
+                    @Html.EditorFor(model => model.category_id, new { htmlAttributes = new { placeholder = "Enter Category ID" } })
+                    @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
+                    <span>@ViewBag.CategoryExist</span>
+                </div>
+                <div class="input-box">
+                    <span class="details">Category Name</span>
+                    @Html.EditorFor(model => model.category_name, new { htmlAttributes = new { placeholder = "Enter your Category Name" } })
+                    @Html.ValidationMessageFor(model => model.category_name, "", new { @class = "text-danger" })
+                   
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Add Category">
+            </div>
+            <div class="button">
+                <input type="submit" value="Back" onclick="location.href='@Url.Action("ViewCategory", "Categories")';return false;">
+            </div>
+        }
+
+    </div>
+
+

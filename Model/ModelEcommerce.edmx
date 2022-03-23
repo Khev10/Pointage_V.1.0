@@ -1,0 +1,592 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EcommerceDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cart">
+          <Key>
+            <PropertyRef Name="cart_id" />
+          </Key>
+          <Property Name="cart_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="users_id" Type="int" />
+        </EntityType>
+        <EntityType Name="cart_items">
+          <Key>
+            <PropertyRef Name="cart_items_id" />
+          </Key>
+          <Property Name="cart_items_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cart_id" Type="int" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="coupon_id" Type="int" />
+          <Property Name="product_qty" Type="int" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="category_name" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="checkout">
+          <Key>
+            <PropertyRef Name="checkout_id" />
+          </Key>
+          <Property Name="checkout_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cart_id" Type="int" />
+          <Property Name="coupon_id" Type="int" />
+          <Property Name="total_price" Type="money" />
+          <Property Name="checkout_date" Type="date" />
+          <Property Name="delivery_date" Type="date" />
+          <Property Name="payment_method" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="coupon">
+          <Key>
+            <PropertyRef Name="coupon_id" />
+          </Key>
+          <Property Name="coupon_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="event_id" Type="int" />
+          <Property Name="coupon_name" Type="varchar" MaxLength="20" />
+          <Property Name="discount_val" Type="numeric" Precision="2" Scale="2" />
+        </EntityType>
+        <EntityType Name="events">
+          <Key>
+            <PropertyRef Name="event_id" />
+          </Key>
+          <Property Name="event_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="event_name" Type="varchar" MaxLength="20" />
+          <Property Name="start_date" Type="date" />
+          <Property Name="expiry_date" Type="date" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="product_name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="category_id" Type="varchar" MaxLength="10" />
+          <Property Name="product_price" Type="money" />
+          <Property Name="product_available_qty" Type="int" />
+          <Property Name="product_image" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="users_id" />
+          </Key>
+          <Property Name="users_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="date_of_reg" Type="date" />
+          <Property Name="address" Type="varchar" MaxLength="20" />
+          <Property Name="contact_no" Type="varchar" MaxLength="11" />
+        </EntityType>
+        <Association Name="cartid_fk">
+          <End Role="cart" Type="Self.cart" Multiplicity="0..1" />
+          <End Role="cart_items" Type="Self.cart_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cart">
+              <PropertyRef Name="cart_id" />
+            </Principal>
+            <Dependent Role="cart_items">
+              <PropertyRef Name="cart_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cartitem_productid_fk">
+          <End Role="product" Type="Self.product" Multiplicity="0..1" />
+          <End Role="cart_items" Type="Self.cart_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="cart_items">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cartuserid_fk">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="cart" Type="Self.cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="users_id" />
+            </Principal>
+            <Dependent Role="cart">
+              <PropertyRef Name="users_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="categoryid_fk">
+          <End Role="category" Type="Self.category" Multiplicity="0..1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cicouponid_fk">
+          <End Role="coupon" Type="Self.coupon" Multiplicity="0..1" />
+          <End Role="cart_items" Type="Self.cart_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coupon">
+              <PropertyRef Name="coupon_id" />
+            </Principal>
+            <Dependent Role="cart_items">
+              <PropertyRef Name="coupon_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="eventcoupon_fk">
+          <End Role="events" Type="Self.events" Multiplicity="0..1" />
+          <End Role="coupon" Type="Self.coupon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="events">
+              <PropertyRef Name="event_id" />
+            </Principal>
+            <Dependent Role="coupon">
+              <PropertyRef Name="event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="item_cartid_fk">
+          <End Role="cart" Type="Self.cart" Multiplicity="0..1" />
+          <End Role="checkout" Type="Self.checkout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cart">
+              <PropertyRef Name="cart_id" />
+            </Principal>
+            <Dependent Role="checkout">
+              <PropertyRef Name="cart_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="item_couponid_fk">
+          <End Role="coupon" Type="Self.coupon" Multiplicity="0..1" />
+          <End Role="checkout" Type="Self.checkout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coupon">
+              <PropertyRef Name="coupon_id" />
+            </Principal>
+            <Dependent Role="checkout">
+              <PropertyRef Name="coupon_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EcommerceDBModel1StoreContainer">
+          <EntitySet Name="cart" EntityType="Self.cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cart_items" EntityType="Self.cart_items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="checkout" EntityType="Self.checkout" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="coupon" EntityType="Self.coupon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="events" EntityType="Self.events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="cartid_fk" Association="Self.cartid_fk">
+            <End Role="cart" EntitySet="cart" />
+            <End Role="cart_items" EntitySet="cart_items" />
+          </AssociationSet>
+          <AssociationSet Name="cartitem_productid_fk" Association="Self.cartitem_productid_fk">
+            <End Role="product" EntitySet="product" />
+            <End Role="cart_items" EntitySet="cart_items" />
+          </AssociationSet>
+          <AssociationSet Name="cartuserid_fk" Association="Self.cartuserid_fk">
+            <End Role="users" EntitySet="users" />
+            <End Role="cart" EntitySet="cart" />
+          </AssociationSet>
+          <AssociationSet Name="categoryid_fk" Association="Self.categoryid_fk">
+            <End Role="category" EntitySet="category" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="cicouponid_fk" Association="Self.cicouponid_fk">
+            <End Role="coupon" EntitySet="coupon" />
+            <End Role="cart_items" EntitySet="cart_items" />
+          </AssociationSet>
+          <AssociationSet Name="eventcoupon_fk" Association="Self.eventcoupon_fk">
+            <End Role="events" EntitySet="events" />
+            <End Role="coupon" EntitySet="coupon" />
+          </AssociationSet>
+          <AssociationSet Name="item_cartid_fk" Association="Self.item_cartid_fk">
+            <End Role="cart" EntitySet="cart" />
+            <End Role="checkout" EntitySet="checkout" />
+          </AssociationSet>
+          <AssociationSet Name="item_couponid_fk" Association="Self.item_couponid_fk">
+            <End Role="coupon" EntitySet="coupon" />
+            <End Role="checkout" EntitySet="checkout" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EcommerceDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cart">
+          <Key>
+            <PropertyRef Name="cart_id" />
+          </Key>
+          <Property Name="cart_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="users_id" Type="Int32" />
+          <NavigationProperty Name="cart_items" Relationship="Self.cartid_fk" FromRole="cart" ToRole="cart_items" />
+          <NavigationProperty Name="users" Relationship="Self.cartuserid_fk" FromRole="cart" ToRole="users" />
+          <NavigationProperty Name="checkout" Relationship="Self.item_cartid_fk" FromRole="cart" ToRole="checkout" />
+        </EntityType>
+        <EntityType Name="cart_items">
+          <Key>
+            <PropertyRef Name="cart_items_id" />
+          </Key>
+          <Property Name="cart_items_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cart_id" Type="Int32" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="coupon_id" Type="Int32" />
+          <Property Name="product_qty" Type="Int32" />
+          <NavigationProperty Name="cart" Relationship="Self.cartid_fk" FromRole="cart_items" ToRole="cart" />
+          <NavigationProperty Name="product" Relationship="Self.cartitem_productid_fk" FromRole="cart_items" ToRole="product" />
+          <NavigationProperty Name="coupon" Relationship="Self.cicouponid_fk" FromRole="cart_items" ToRole="coupon" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="category_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="product" Relationship="Self.categoryid_fk" FromRole="category" ToRole="product" />
+        </EntityType>
+        <EntityType Name="checkout">
+          <Key>
+            <PropertyRef Name="checkout_id" />
+          </Key>
+          <Property Name="checkout_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cart_id" Type="Int32" />
+          <Property Name="coupon_id" Type="Int32" />
+          <Property Name="total_price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="checkout_date" Type="DateTime" Precision="0" />
+          <Property Name="delivery_date" Type="DateTime" Precision="0" />
+          <Property Name="payment_method" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cart" Relationship="Self.item_cartid_fk" FromRole="checkout" ToRole="cart" />
+          <NavigationProperty Name="coupon" Relationship="Self.item_couponid_fk" FromRole="checkout" ToRole="coupon" />
+        </EntityType>
+        <EntityType Name="coupon">
+          <Key>
+            <PropertyRef Name="coupon_id" />
+          </Key>
+          <Property Name="coupon_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="event_id" Type="Int32" />
+          <Property Name="coupon_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="discount_val" Type="Decimal" Precision="2" Scale="2" />
+          <NavigationProperty Name="cart_items" Relationship="Self.cicouponid_fk" FromRole="coupon" ToRole="cart_items" />
+          <NavigationProperty Name="checkout" Relationship="Self.item_couponid_fk" FromRole="coupon" ToRole="checkout" />
+          <NavigationProperty Name="events" Relationship="Self.eventcoupon_fk" FromRole="coupon" ToRole="events" />
+        </EntityType>
+        <EntityType Name="events">
+          <Key>
+            <PropertyRef Name="event_id" />
+          </Key>
+          <Property Name="event_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="event_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="start_date" Type="DateTime" Precision="0" />
+          <Property Name="expiry_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="coupon" Relationship="Self.eventcoupon_fk" FromRole="events" ToRole="coupon" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="product_id" />
+          </Key>
+          <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="category_id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="product_price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="product_available_qty" Type="Int32" />
+          <Property Name="product_image" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cart_items" Relationship="Self.cartitem_productid_fk" FromRole="product" ToRole="cart_items" />
+          <NavigationProperty Name="category" Relationship="Self.categoryid_fk" FromRole="product" ToRole="category" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="users_id" />
+          </Key>
+          <Property Name="users_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date_of_reg" Type="DateTime" Precision="0" />
+          <Property Name="address" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="contact_no" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cart" Relationship="Self.cartuserid_fk" FromRole="users" ToRole="cart" />
+        </EntityType>
+        <Association Name="cartid_fk">
+          <End Role="cart" Type="Self.cart" Multiplicity="0..1" />
+          <End Role="cart_items" Type="Self.cart_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cart">
+              <PropertyRef Name="cart_id" />
+            </Principal>
+            <Dependent Role="cart_items">
+              <PropertyRef Name="cart_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cartuserid_fk">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="cart" Type="Self.cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="users_id" />
+            </Principal>
+            <Dependent Role="cart">
+              <PropertyRef Name="users_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="item_cartid_fk">
+          <End Role="cart" Type="Self.cart" Multiplicity="0..1" />
+          <End Role="checkout" Type="Self.checkout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cart">
+              <PropertyRef Name="cart_id" />
+            </Principal>
+            <Dependent Role="checkout">
+              <PropertyRef Name="cart_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cartitem_productid_fk">
+          <End Role="product" Type="Self.product" Multiplicity="0..1" />
+          <End Role="cart_items" Type="Self.cart_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="cart_items">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cicouponid_fk">
+          <End Role="coupon" Type="Self.coupon" Multiplicity="0..1" />
+          <End Role="cart_items" Type="Self.cart_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coupon">
+              <PropertyRef Name="coupon_id" />
+            </Principal>
+            <Dependent Role="cart_items">
+              <PropertyRef Name="coupon_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="categoryid_fk">
+          <End Role="category" Type="Self.category" Multiplicity="0..1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="item_couponid_fk">
+          <End Role="coupon" Type="Self.coupon" Multiplicity="0..1" />
+          <End Role="checkout" Type="Self.checkout" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="coupon">
+              <PropertyRef Name="coupon_id" />
+            </Principal>
+            <Dependent Role="checkout">
+              <PropertyRef Name="coupon_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="eventcoupon_fk">
+          <End Role="events" Type="Self.events" Multiplicity="0..1" />
+          <End Role="coupon" Type="Self.coupon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="events">
+              <PropertyRef Name="event_id" />
+            </Principal>
+            <Dependent Role="coupon">
+              <PropertyRef Name="event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EcommerceDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cart" EntityType="Self.cart" />
+          <EntitySet Name="cart_items" EntityType="Self.cart_items" />
+          <EntitySet Name="category" EntityType="Self.category" />
+          <EntitySet Name="checkout" EntityType="Self.checkout" />
+          <EntitySet Name="coupon" EntityType="Self.coupon" />
+          <EntitySet Name="events" EntityType="Self.events" />
+          <EntitySet Name="product" EntityType="Self.product" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <AssociationSet Name="cartid_fk" Association="Self.cartid_fk">
+            <End Role="cart" EntitySet="cart" />
+            <End Role="cart_items" EntitySet="cart_items" />
+          </AssociationSet>
+          <AssociationSet Name="cartuserid_fk" Association="Self.cartuserid_fk">
+            <End Role="users" EntitySet="users" />
+            <End Role="cart" EntitySet="cart" />
+          </AssociationSet>
+          <AssociationSet Name="item_cartid_fk" Association="Self.item_cartid_fk">
+            <End Role="cart" EntitySet="cart" />
+            <End Role="checkout" EntitySet="checkout" />
+          </AssociationSet>
+          <AssociationSet Name="cartitem_productid_fk" Association="Self.cartitem_productid_fk">
+            <End Role="product" EntitySet="product" />
+            <End Role="cart_items" EntitySet="cart_items" />
+          </AssociationSet>
+          <AssociationSet Name="cicouponid_fk" Association="Self.cicouponid_fk">
+            <End Role="coupon" EntitySet="coupon" />
+            <End Role="cart_items" EntitySet="cart_items" />
+          </AssociationSet>
+          <AssociationSet Name="categoryid_fk" Association="Self.categoryid_fk">
+            <End Role="category" EntitySet="category" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="item_couponid_fk" Association="Self.item_couponid_fk">
+            <End Role="coupon" EntitySet="coupon" />
+            <End Role="checkout" EntitySet="checkout" />
+          </AssociationSet>
+          <AssociationSet Name="eventcoupon_fk" Association="Self.eventcoupon_fk">
+            <End Role="events" EntitySet="events" />
+            <End Role="coupon" EntitySet="coupon" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EcommerceDBModel1StoreContainer" CdmEntityContainer="EcommerceDBEntities">
+          <EntitySetMapping Name="cart">
+            <EntityTypeMapping TypeName="EcommerceDBModel1.cart">
+              <MappingFragment StoreEntitySet="cart">
+                <ScalarProperty Name="cart_id" ColumnName="cart_id" />
+                <ScalarProperty Name="users_id" ColumnName="users_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cart_items">
+            <EntityTypeMapping TypeName="EcommerceDBModel1.cart_items">
+              <MappingFragment StoreEntitySet="cart_items">
+                <ScalarProperty Name="cart_items_id" ColumnName="cart_items_id" />
+                <ScalarProperty Name="cart_id" ColumnName="cart_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="coupon_id" ColumnName="coupon_id" />
+                <ScalarProperty Name="product_qty" ColumnName="product_qty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="category">
+            <EntityTypeMapping TypeName="EcommerceDBModel1.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="checkout">
+            <EntityTypeMapping TypeName="EcommerceDBModel1.checkout">
+              <MappingFragment StoreEntitySet="checkout">
+                <ScalarProperty Name="checkout_id" ColumnName="checkout_id" />
+                <ScalarProperty Name="cart_id" ColumnName="cart_id" />
+                <ScalarProperty Name="coupon_id" ColumnName="coupon_id" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+                <ScalarProperty Name="checkout_date" ColumnName="checkout_date" />
+                <ScalarProperty Name="delivery_date" ColumnName="delivery_date" />
+                <ScalarProperty Name="payment_method" ColumnName="payment_method" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="coupon">
+            <EntityTypeMapping TypeName="EcommerceDBModel1.coupon">
+              <MappingFragment StoreEntitySet="coupon">
+                <ScalarProperty Name="coupon_id" ColumnName="coupon_id" />
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
+                <ScalarProperty Name="coupon_name" ColumnName="coupon_name" />
+                <ScalarProperty Name="discount_val" ColumnName="discount_val" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="events">
+            <EntityTypeMapping TypeName="EcommerceDBModel1.events">
+              <MappingFragment StoreEntitySet="events">
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
+                <ScalarProperty Name="event_name" ColumnName="event_name" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product">
+            <EntityTypeMapping TypeName="EcommerceDBModel1.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_available_qty" ColumnName="product_available_qty" />
+                <ScalarProperty Name="product_image" ColumnName="product_image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="EcommerceDBModel1.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="users_id" ColumnName="users_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="date_of_reg" ColumnName="date_of_reg" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram DiagramId="90e36b49e4284ee9bc2e16cda79c8d8a" Name="Diagram1">
+        <EntityTypeShape EntityType="EcommerceDBModel1.cart" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceDBModel1.cart_items" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceDBModel1.category" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceDBModel1.checkout" Width="1.5" PointX="8.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceDBModel1.coupon" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceDBModel1.events" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceDBModel1.product" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommerceDBModel1.users" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="EcommerceDBModel1.cartid_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceDBModel1.cartuserid_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceDBModel1.item_cartid_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceDBModel1.cartitem_productid_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceDBModel1.cicouponid_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceDBModel1.categoryid_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceDBModel1.item_couponid_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommerceDBModel1.eventcoupon_fk" ManuallyRouted="false" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

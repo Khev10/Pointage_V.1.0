@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Admin Home Page";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+
+<div class="title">Welcome to @Session["email"]</div>
+<div class="content">
+    @{ if (Session["email"] == null)
+        {
+           
+        }
+    }
+    <form action="#">
+        <div class="user-details">
+        </div>
+        <div class="button">
+            <input type="submit" value="Product" onclick="location.href='@Url.Action("ViewProducts", "Products")';return false;">
+        </div>
+        <div class="button">
+            <input type="submit" value="Category" onclick="location.href='@Url.Action("ViewCategory", "Categories")';return false;">
+        </div>
+        <div class="button">
+            <input type="submit" value="Coupon" onclick="location.href='@Url.Action("ViewCoupon", "Coupons")';return false;">
+        </div>
+        <div class="button">
+            <input type="submit" value="Events" onclick="location.href='@Url.Action("ViewEvent", "Events")';return false;">
+        </div>
+        <div class="button">
+            <input type="submit" value="Logout" onclick="location.href='@Url.Action("AdminLogout", "Login")';return false;">
+        </div>
+    </form>
+</div>
+

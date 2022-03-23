@@ -1,0 +1,118 @@
+﻿@model IEnumerable<pointage.Model.cart_items>
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+
+
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="title">
+        <h2>Shopping Cart</h2>
+    </div>
+    <div class="d-flex">
+        <div class="container">
+
+            <table class="table table-bordered">
+                <tr>
+                    <th style="color:black;">@Html.DisplayNameFor(model => model.product.product_name)</th>
+                    <th style="color:black;">@Html.DisplayNameFor(model => model.product.product_price)</th>
+                    <th style="color:black;">@Html.DisplayNameFor(model => model.product_qty)</th>
+                    <th style="color:black;">SUBTOTAL</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="color:black;">@Html.DisplayFor(modelItem => item.product.product_name)</td>
+                        <td style="color:black;">@Html.DisplayFor(modelItem => item.product.product_price)</td>
+                        <td style="color:black;"><span> @Html.ActionLink(" ", "add_item", "CartItems", new { id = item.cart_items_id }, new { @class = "fa fa-plus" })</span>&emsp;@Html.DisplayFor(modelItem => item.product_qty) &emsp;<span> @Html.ActionLink(" ", "minus_item", "CartItems", new { id = item.cart_items_id }, new { @class = "fa fa-minus" })</span></td>
+                        <td style="color:green;">@((item.product.product_price)* item.product_qty)</td>
+                        <td style="color:black;">
+                            @Html.ActionLink(" Remove ", "Delete", "CartItems", new { id = item.cart_items_id }, new { @class = "fa fa-trash", onclick = "return confirm ('Are you sure you want to delete this?');" })
+                        </td>
+                    </tr>
+                }
+                @if (Session["coupon"] == null)
+                {
+            <tr>
+                @using (Html.BeginForm("AddCoupon", "CartItems", FormMethod.Post))
+                {
+                <td colspan="4">
+                    <input type="text" placeholder="Coupon Code" id="coupon_name" name="coupon_name" />
+                    @*<span>@Session["couponerror"]</span>*@
+                </td>
+                    
+
+                    <td>
+                        <input type="submit" value="Add Coupon" />
+                    </td>
+                }
+            </tr>
+                }
+                else
+                {
+            <tr>
+                <td colspan="3">Coupon Discount</td>
+                    
+                <td>
+                   
+                    @Html.ActionLink(" ", "RemoveCoupon", "CartItems", null, new { @class = "fa fa-trash", onclick = "return confirm ('Are you sure you want to delete this?');" })
+
+                </td>
+                <td style="color:black;">
+                   
+                     -@Session["coupondiscount"]
+                    @*@(ViewBag.totalprice * decimal.Parse(Session["coupondiscount"].ToString()))*@
+                      
+                </td>
+            </tr>
+                }
+                <tr>
+                    <td colspan="4">Total</td>
+                    <td>
+                        @Session["totalprice"]
+                    </td>
+                </tr>
+
+            </table>
+            <form>
+                 @Html.ActionLink("Continue Shopping", "Store", "Home")
+                <br />
+                 @Html.ActionLink("Check Out", "Checkout", "Checkouts", new { id = Session["cart_id"] }, null)
+            </form>
+
+        </div><!-- Yorder -->
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <!-- JS here -->
+    <script src="~/js/vendor/jquery-3.4.1.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/isotope.pkgd.min.js"></script>
+    <script src="~/js/slick.min.js"></script>
+    <script src="~/js/jquery.meanmenu.min.js"></script>
+    <script src="~/js/wow.min.js"></script>
+    <script src="~/js/aos.js"></script>
+    <script src="~/js/jquery.lettering.js"></script>
+    <script src="~/js/jquery.textillate.js"></script>
+    <script src="~/js/jquery.odometer.min.js"></script>
+    <script src="~/js/jquery.appear.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/jquery.countdown.min.js"></script>
+    <script src="~/js/jquery.scrollUp.min.js"></script>
+    <script src="~/js/imagesloaded.pkgd.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/main.js"></script>
